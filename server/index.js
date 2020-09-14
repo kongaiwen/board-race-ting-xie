@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.post('/images', (req, res) => {
-  console.log(req.body.img);
+  // console.log(req.body.img);
   let base64Img = req.body.img;
   let startIndex = base64Img.indexOf(',');
   let base64Str = base64Img.slice(startIndex + 1);
-  console.log(base64Str);
+  // console.log(base64Str);
 
   let request = {
     image: {
@@ -44,19 +44,33 @@ app.post('/images', (req, res) => {
     }
   }
   client.textDetection(request, (err, response) => {
-    console.log(err);
-    console.log(response);
+    // console.log(err);
+    // console.log(response);
+    console.log(response.textAnnotations[1].description);
+    res.status(200).send(response.textAnnotations[1].description);
   })
     // .then((result) => res.status(200).send(result))
     // .catch((error) => res.status(500).send(error))
 
 })
-io.on('connection', (socket) => {
+io.on('connect', (socket) => {
   console.log('connecting')
-  socket.on('listeningForHello', () => {
-    let string = 'hello';
-    io.sockets.emit('sendingHello', string);
+  socket.on('mouseDown', (coords) => {
+    socket.broadcast.emit('mouseDown', coords);
   })
+
+  socket.on('mouseMove', (coords) => {
+    socket.broadcast.emit('mouseMove', coords);
+  })
+
+  socket.on('mouseUp', () => {
+    socket.broadcast.emit('mouseUp');
+  })
+
+  socket.on('receivedResults', (results) => {
+    socket.broadcast.emit('receivedResults', results);
+  })
+
 })
 
 server.listen(port, () => console.log('Listening on port', port));
