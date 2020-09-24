@@ -48,7 +48,7 @@ class Canvas extends React.Component {
       opponentMouseDown: false,
       timerOn: false,
     };
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://3.14.131.38');
 
     this.canvasRef = React.createRef();
     this.canvas = '';

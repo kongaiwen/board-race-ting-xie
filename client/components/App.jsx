@@ -48,7 +48,7 @@ class App extends React.Component {
         '너', '저', '빨강'
       ]
     };
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://3.14.131.38');
     this.sendCanvas = this.sendCanvas.bind(this);
   }
 
