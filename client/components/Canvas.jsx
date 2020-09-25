@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
 
 const StyledCanvasOne = styled.div`
   border: 2px solid black;
-  width: 600px;
+  width: 400px;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ const StyledCanvasOne = styled.div`
 
 const StyledCanvasOpp = styled.div`
 border: 2px solid black;
-width: 600px;
+width: 400px;
 height: 300px;
 display: flex;
 flex-direction: column;
@@ -48,7 +48,7 @@ class Canvas extends React.Component {
       opponentMouseDown: false,
       timerOn: false,
     };
-    this.socket = io('http://3.14.131.38');
+    this.socket = io('http://3.14.131.38:3000');
 
     this.canvasRef = React.createRef();
     this.canvas = '';
@@ -67,12 +67,13 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+
     this.canvas = this.canvasRef.current;
     this.context = this.canvas.getContext('2d');
 
     this.oppCanvas = this.oppCanvasRef.current;
     this.oppContext = this.oppCanvas.getContext('2d');
-
+    
     this.context.fillStyle = 'white';
     this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
@@ -91,6 +92,14 @@ class Canvas extends React.Component {
     this.socket.on('mouseUp', () => {
       this.handleOppMouseUp();
     });
+
+
+  }
+
+  componentDidUpdate() {
+    if (this.props.timerComplete) {
+      this.props.sendCanvas(this.canvas);
+    }
   }
 
   handleMouseDown(e) {
@@ -161,12 +170,11 @@ class Canvas extends React.Component {
     return (
         <StyledContainer>
           <StyledCanvasOne>
-            <canvas ref={this.canvasRef} onMouseMove={this.handleMouseMove} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} height="300px" width="600px" />
-            <button onClick={() => this.props.sendCanvas(this.canvas)}>Send</button>
+            <canvas ref={this.canvasRef} onMouseMove={this.handleMouseMove} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} width="400px" height="300px" />
+
           </StyledCanvasOne>
           <StyledCanvasOpp>
-            <canvas ref={this.oppCanvasRef} height="300px" width="600px" />
-            <button onClick={() => this.props.sendCanvas(this.canvas)}>Send</button>
+            <canvas ref={this.oppCanvasRef} width="400px" height="300px" />
         </StyledCanvasOpp>
       </StyledContainer>
     )
