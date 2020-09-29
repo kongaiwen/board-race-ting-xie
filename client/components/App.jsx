@@ -16,7 +16,7 @@ const StyledPage = styled.div`
   width: 100vw;
   background-color: pink;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto 3fr auto;
+  grid-template-rows: 75px auto 350px auto;
 `;
 
 
@@ -156,7 +156,7 @@ class App extends React.Component {
   render() {
     return (
       <StyledPage>
-        <Header><h1>BOARD RACE!</h1><h1>TING XIE!</h1></Header>
+        <Header><h1>BOARD RACE!  TING XIE!</h1></Header>
         <HUD currentTest={this.state.currentTest} currentWordIndex={this.state.currentWordIndex} currentWord={this.state.currentWord} time={this.state.time} startGame={this.startGame} resultsAreIn={this.state.resultsAreIn} targetWords={this.state[this.state.currentTest.toLowerCase()+'Targets']} goToNextWord={this.goToNextWord} playerOnePoints={this.state.playerOnePoints} playerTwoPoints={this.state.playerTwoPoints} />
         <Canvas currentTest={this.state.currentTest} sendCanvas={this.sendCanvas} homeResults={this.state.homeResults} timerComplete={this.state.timerComplete}/>
         { !this.state.timerOn && this.state.homeResults && this.state.oppResults &&

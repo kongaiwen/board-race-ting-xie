@@ -6,6 +6,7 @@ const Header = styled.header`
   grid-column: 1 / 2;
   font-size: 30px;
   font-family: 'Architects Daughter', cursive;
+  color: white;
   height: 100%;
   width: 100%;
   display: flex;
