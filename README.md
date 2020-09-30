@@ -2,6 +2,9 @@
 
   > An online interactive multi-player/single-player handwriting game for anyone practicing a new language
 
+## User Experience
+
+![game](board_race_ting_xie.gif)
 
 ## Press Release
 ## Summary ##
